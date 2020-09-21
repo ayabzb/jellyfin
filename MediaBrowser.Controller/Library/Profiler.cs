@@ -55,29 +55,29 @@ namespace MediaBrowser.Controller.Library
         /// <param name="dispose"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
         protected virtual void Dispose(bool dispose)
         {
-            if (dispose)
-            {
-                _stopwatch.Stop();
-                string message;
-                if (_stopwatch.ElapsedMilliseconds > 300000)
-                {
-                    message = string.Format(
-                        CultureInfo.InvariantCulture,
-                        "{0} took {1} minutes.",
-                        _name,
-                        ((float)_stopwatch.ElapsedMilliseconds / 60000).ToString("F", CultureInfo.InvariantCulture));
-                }
-                else
-                {
-                    message = string.Format(
-                        CultureInfo.InvariantCulture,
-                        "{0} took {1} seconds.",
-                        _name,
-                        ((float)_stopwatch.ElapsedMilliseconds / 1000).ToString("#0.000", CultureInfo.InvariantCulture));
-                }
+            if (!dispose)
+                return;
 
-                _logger.LogInformation(message);
+            _stopwatch.Stop();
+            string message;
+            if (_stopwatch.ElapsedMilliseconds > 300000)
+            {
+                message = string.Format(
+                    CultureInfo.InvariantCulture,
+                    "{0} took {1} minutes.",
+                    _name,
+                    ((float)_stopwatch.ElapsedMilliseconds / 60000).ToString("F", CultureInfo.InvariantCulture));
             }
+            else
+            {
+                message = string.Format(
+                    CultureInfo.InvariantCulture,
+                    "{0} took {1} seconds.",
+                    _name,
+                    ((float)_stopwatch.ElapsedMilliseconds / 1000).ToString("#0.000", CultureInfo.InvariantCulture));
+            }
+
+            _logger.LogInformation(message);
         }
     }
 }
