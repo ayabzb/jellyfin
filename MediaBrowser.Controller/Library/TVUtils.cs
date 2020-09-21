@@ -14,34 +14,32 @@ namespace MediaBrowser.Controller.Library
         /// <returns>List{DayOfWeek}.</returns>
         public static DayOfWeek[] GetAirDays(string day)
         {
-            if (!string.IsNullOrEmpty(day))
+            if (string.IsNullOrEmpty(day))
+                return null;
+
+            if (string.Equals(day, "Daily", StringComparison.OrdinalIgnoreCase))
             {
-                if (string.Equals(day, "Daily", StringComparison.OrdinalIgnoreCase))
+                return new[]
                 {
-                    return new[]
-                    {
-                        DayOfWeek.Sunday,
-                        DayOfWeek.Monday,
-                        DayOfWeek.Tuesday,
-                        DayOfWeek.Wednesday,
-                        DayOfWeek.Thursday,
-                        DayOfWeek.Friday,
-                        DayOfWeek.Saturday
-                    };
-                }
-
-                if (Enum.TryParse(day, true, out DayOfWeek value))
-                {
-                    return new[]
-                    {
-                        value
-                    };
-                }
-
-                return Array.Empty<DayOfWeek>();
+                    DayOfWeek.Sunday,
+                    DayOfWeek.Monday,
+                    DayOfWeek.Tuesday,
+                    DayOfWeek.Wednesday,
+                    DayOfWeek.Thursday,
+                    DayOfWeek.Friday,
+                    DayOfWeek.Saturday
+                };
             }
 
-            return null;
+            if (Enum.TryParse(day, true, out DayOfWeek value))
+            {
+                return new[]
+                {
+                    value
+                };
+            }
+
+            return Array.Empty<DayOfWeek>();
         }
     }
 }
