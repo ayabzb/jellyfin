@@ -31,10 +31,7 @@ namespace MediaBrowser.Controller.Entities
 
         public override double GetDefaultPrimaryImageAspectRatio()
         {
-            double value = 2;
-            value /= 3;
-
-            return value;
+            return 2/3;
         }
 
         [JsonIgnore]
